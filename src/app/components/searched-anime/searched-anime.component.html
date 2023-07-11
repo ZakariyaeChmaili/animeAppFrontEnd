@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row my-3">
+    <div  class="lead">
+      Results For: {{ kword }}
+    </div>
+  </div>
+  <ng-container *ngIf="nores">
+<div>No Results</div>
+  </ng-container>
+
+  <div id="searchedAnime" class="row justify-content-center">
+    <mat-card  class="col-lg-3 col-md-4 py-2 m-2" *ngFor="let anime of animes" >
+      <div class="row justify-content-center">
+        <img mat-card-image class="col-auto w-50" [src]="anime.animeImg" alt="Anime Image">
+
+      </div>
+      <mat-card-content>
+        <h3>{{ anime.animeTitle }}</h3>
+        <p>Status: {{ anime.status }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button routerLink="/home/anime/{{anime.animeId}}" mat-fab extended color="primary">
+          <mat-icon>movie</mat-icon>
+          Watch
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>

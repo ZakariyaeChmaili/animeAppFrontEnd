@@ -1,0 +1,142 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-end justify-content-center ">
+    <form class="col-auto" >
+      <mat-form-field class="example-full-width">
+        <mat-label>Search</mat-label>
+        <input name="kword" [(ngModel)]="kword" type="text" matInput placeholder="ex:Naruto">
+
+      </mat-form-field>
+      <button (click)="searchAnime()" class="ms-1" mat-fab color="primary" >
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+
+  </div>
+  <div class="row justify-content-center">
+    <div class="col">
+      <ng-container *ngIf="PopularAnimeList$ |async as popularAnime ; else placeHolder">
+
+        <p-carousel [value]="popularAnime" [numVisible]="5" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+          <ng-template pTemplate="header">
+            <div class="lead my-5">Popular Anime</div>
+          </ng-template>
+          <ng-template let-popularAnime pTemplate="item">
+            <div class="anime-item d-flex flex-column justify-content-between h-100 mx-3">
+              <div class="anime-item-content ">
+                <div class="mb-3">
+                  <img src="{{popularAnime.animeImg}}" [alt]="popularAnime.animeTitle" class="anime-image" />
+                </div>
+                <div>
+                  <h4 class="mb-1">{{ popularAnime.animeTitle }}</h4>
+                  <h6 class="mt-0 mb-3">{{ popularAnime.releasedDate }}</h6>
+                </div>
+              </div>
+              <div class="buttons">
+                <button routerLink="/home/anime/{{popularAnime.animeId}}" mat-fab extended color="primary">
+                  <mat-icon>movie</mat-icon>
+                  Watch
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </ng-container>
+      <ng-template #placeHolder>
+        <div class="row justify-content">
+
+          <mat-card class="col-auto example-card pt-3">
+            <mat-card-header>
+              <!-- <div mat-card-avatar class="example-header-image"></div> -->
+              <mat-card-title> <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+              </mat-card-title>
+              <mat-card-subtitle> <p-skeleton width="6rem" styleClass="mb-2"></p-skeleton>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <div class="row justify-content-center">
+              <div class="col col-10">
+                <p-skeleton class="ms-5" width="10rem" height="15rem"></p-skeleton>
+              </div>
+              <mat-card-content class="px-5 mt-5 ">
+                <p>
+                  <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton height="2rem" width="10rem" styleClass="mb-2"></p-skeleton>
+                </p>
+              </mat-card-content>
+            </div>
+          </mat-card>
+          <mat-card class="col-auto example-card pt-3">
+            <mat-card-header>
+              <!-- <div mat-card-avatar class="example-header-image"></div> -->
+              <mat-card-title> <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+              </mat-card-title>
+              <mat-card-subtitle> <p-skeleton width="6rem" styleClass="mb-2"></p-skeleton>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <div class="row justify-content-center">
+              <div class="col col-10">
+                <p-skeleton class="ms-5" width="10rem" height="15rem"></p-skeleton>
+              </div>
+              <mat-card-content class="px-5 mt-5 ">
+                <p>
+                  <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton height="2rem" width="10rem" styleClass="mb-2"></p-skeleton>
+                </p>
+              </mat-card-content>
+            </div>
+          </mat-card>
+          <mat-card class="col-auto example-card pt-3">
+            <mat-card-header>
+              <!-- <div mat-card-avatar class="example-header-image"></div> -->
+              <mat-card-title> <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+              </mat-card-title>
+              <mat-card-subtitle> <p-skeleton width="6rem" styleClass="mb-2"></p-skeleton>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <div class="row justify-content-center">
+              <div class="col col-10">
+                <p-skeleton class="ms-5" width="10rem" height="15rem"></p-skeleton>
+              </div>
+              <mat-card-content class="px-5 mt-5 ">
+                <p>
+                  <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton height="2rem" width="10rem" styleClass="mb-2"></p-skeleton>
+                </p>
+              </mat-card-content>
+            </div>
+          </mat-card>
+          </div>
+
+      </ng-template>
+
+
+
+    </div>
+  </div>
+
+  <ng-container  *ngIf="animeSearchedList$ | async as animes ; else spinner ">
+    <div class="row">
+  <app-searched-anime [animes]="animes" [kword]="kword"></app-searched-anime>
+    </div>
+  </ng-container>
+
+
+
+
+  <ng-template #spinner>
+    <ng-container *ngIf="loading">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <mat-spinner></mat-spinner>
+
+      </div>
+    </div>
+  </ng-container>
+  </ng-template>
+
+
+  <div id="loading"></div>
+
+</div>
